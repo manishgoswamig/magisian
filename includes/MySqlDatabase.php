@@ -1,8 +1,8 @@
-<?php 
+<?php
+namespace includes{
+
+
 require_once('env.php');
-
-
-
 
 class MySqlDatabase {
 
@@ -18,7 +18,10 @@ class MySqlDatabase {
 	}
 
 	public function query($query = ''){
-		$result = mysqli_query($this->connection,'select * from users');	
+		$result = mysqli_query($this->connection,$query);
+		if(!$result){
+			die('Database query failed.');
+		}	
 		return $result;		
 	}
 
@@ -32,32 +35,4 @@ class MySqlDatabase {
 
 }
 
-$db = new MySqlDatabase();
-
-$users = $db->query();
-
-
-if(mysqli_num_rows($users) > 0){
-	while($row = mysqli_fetch_assoc($users)){
-		echo '<pre/>'; print_r($row); 
-	}
 }
-/*
-
-$db->query('select * from users;')
-
-print_r($db);*/
-
-
-/*function foo(){
-	return 'yuio';
-}
-
-$a = 'value';
-
-
-echo foo();
-
-echo '<br/>';
-
-die(foo());*/
